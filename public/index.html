@@ -274,6 +274,65 @@
 
     });
 
+    document.querySelector("#btnStop").addEventListener("click", () => {
+        if (token === null) {
+            return;
+        }
+        fetch("/api/v1/stop", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: token
+            })
+        })
+            .then(res => res.json())
+            .then(json => {
+                alert(JSON.stringify(json));
+            });
+
+    });
+
+    document.querySelector("#btnUpdate").addEventListener("click", () => {
+        if (token === null) {
+            return;
+        }
+        fetch("/api/v1/update", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: token
+            })
+        })
+            .then(res => res.json())
+            .then(json => {
+                alert(JSON.stringify(json));
+            });
+
+    });
+    document.querySelector("#btnStart").addEventListener("click", () => {
+        if (token === null) {
+            return;
+        }
+        fetch("/api/v1/start", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: token
+            })
+        })
+            .then(res => res.json())
+            .then(json => {
+                alert(JSON.stringify(json));
+            });
+
+    });
+
 </script>
 
 </html>
