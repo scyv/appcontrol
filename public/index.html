@@ -1,0 +1,280 @@
+<html>
+
+<head>
+    <style>
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        textarea {
+            align-self: stretch;
+            font-size: 15px;
+            margin: 10px;
+            height: 300px;
+            font-family: monospace;
+        }
+
+        button {
+            width: 200px;
+            font-size: 20px;
+        }
+
+        h1 {
+            font-size: 120%;
+            font-weight: bold;
+        }
+
+        .notloaded {
+            display: none;
+        }
+
+        #appControl {
+            margin-top: 20px;
+            border: 1px solid #e1e1e1;
+            padding: 20px;
+            text-align: left;
+            background: #f6f6f6;
+            box-shadow: 1px 1px 10px #eaeaea;
+        }
+
+        .appData>div {
+            padding: 5px;
+        }
+
+        p {
+            margin: 0;
+            padding: 10px;
+            color: #969696;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Deployr.</h1>
+    <p>Welcome. Please enter your well known token into the following text area to start:</p>
+    <textarea type="text" id="token"
+        placeholder="Enter token">jP7QQZFrTT6e4zPKLFKEYabwVJx6duUykbm84tVYfkPyVPutb6CCD2AHffRH8S5SPrpwxpDumaudf87Jc6GK4ymuqxVtqKQS5Z3nKyDuwaz3PGbVVbhzKV7qcRh9TMn4Ctwyh5EQ4DQnu4nf6txEtx6tYVFj5QtYPR5j8Aa49DwjC8W2e6zAQsk89ZRQYmdPA4aseDWP2cg3J4dNHFp9PNFwjhbGchMVN8uWbNub4t7tXKJTEqvzZ2LCZBCDsJ4Be49FZYUm6xTmcBdMLnnbvXh44ZGhutubLR3vXCHnEjLxHPn5f9dRFZKxeURSrhTgT6QyaebGTgEZRYD4PRha9QjExv9Fkv4X6v2FEKsRepmEcLxEKXWQdKavGEM94yWC8qmdDtFueZxTVq2qqgkVgdc6xte6jWSsrEySsfY4kT9pzyx8t3DXxSAyZ3sP72YYcypBrRCttu2VbeYwGQK8gn8M5DBM3Xpv4x9kGaY8TD6QVpJdgJhKRmb4HBVkGAF62B3M6G88afHy2Sd6AHmUgUdKMpxMRMSUrM3RCJukpBTz8P96y88mTLPMLg2JKcErm9bVh2eQRz5SmrAeH8886zpTMvyWTasYPbwBrufFrHkHNYRj38XJpc5NPZjEyZVhK4zmPjkePjxSawUtZnU3WyeXw4mad3BYA3AAjJuE5CNDEeMAAXY7u5NtkDjvaDm6cdDWqmTqPuL3KUA5RbkH2QP2yD7ZDfdCQURJcwcd7nQrfsUDvvMRCDnt3yNQh7LKQZCBTwWRD3LghT9BWryqgPL8YjpCP4Bh9Ejwun5f5vUF8UbcPxz2qCwdFts4zUaHJvjhkeuS2CU85MHx9Zk6N5CeqHtZfmxVsyJ9sZCDrcJbhksUQaC3NVU3dPJMGwJrtMkwTKG8QbhtHrQtPFSYFHV8uhGvzF9XLLGZh2dYWMb4GYPuEByjTNm2aRWn9Tc5s86UdCnuTTCbBJB6PeXwG3K7KnATYhjBBv4Q2LkcnQv4FTZGUttEj9wY7ETeF4AM</textarea>
+    <div id="lastTokens"></div>
+    <button id="btnLoad">Load</button>
+    <div id="appControl" class="notloaded">
+        <div class="appData">
+            <div>ID: <span class="appId"></span></div>
+            <div>Name: <span class="appName"></span></div>
+            <div>Status: <span class="status"></span></div>
+        </div>
+        <button id="btnStop">Stop</button>
+        <button id="btnUpdate">Update</button>
+        <button id="btnStart">Start</button>
+    </div>
+</body>
+<script>
+    let token = null;
+    let loadStatusRunning = false;
+    function loadStatus() {
+        loadStatusRunning = true;
+        if (token === null) {
+            return;
+        }
+        fetch("/api/v1/status", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: token
+            })
+        })
+            .then(res => res.json())
+            .then(appData => {
+                document.querySelector(".appData .status").textContent = appData.status;
+                if (reset) {
+                    return;
+                }
+                window.setTimeout(() => loadStatus(), 3000);
+            });
+
+    }
+
+    function loadAppData(appData) {
+        document.querySelector(".appData .appId").textContent = appData.id;
+        document.querySelector(".appData .appName").textContent = appData.name;
+        document.querySelector(".appData .status").textContent = "...";
+        token = appData.accessToken;
+        if (!loadStatusRunning) {
+            loadStatus();
+        }
+    }
+
+    const tokens = JSON.parse(localStorage.getItem("tokens"));
+    const appDataElem = document.querySelector("#appControl");
+    if (tokens) {
+
+    }
+    document.querySelector("#btnLoad").addEventListener("click", () => {
+        appDataElem.classList.add("notloaded");
+        const tokenToLoad = document.querySelector("#token").value;
+        fetch("/api/v1/info", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: tokenToLoad
+            })
+        })
+            .then(res => res.json())
+            .then(appData => {
+                if (appData.error) {
+                    alert(appData.error);
+                    return;
+                }
+                reset = false;
+                loadAppData(appData);
+                appDataElem.classList.remove("notloaded");
+
+            }).catch(err => {
+                alert(err);
+            })
+
+    });
+
+</script>
+
+</html>
