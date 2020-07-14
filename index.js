@@ -87,6 +87,7 @@ class App {
     }
 
     runScript(manifest, script, res) {
+        console.log("Running script " + manifest[script] + " for " + manifest.id);
         execFile(manifest[script], (error, stdout, stderr) => {
             if (error) {
                 res.json({ appId: manifest.id, msg: stdout, errmsg: stderr, error: error });
