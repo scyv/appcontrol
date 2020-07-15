@@ -283,7 +283,10 @@
         document.querySelector("#knownTokens").addEventListener("click", (evt) => {
             const tokens = loadTokens();
             if (tokens) {
-                document.querySelector("#token").value = tokens[evt.target.dataset.appid].accessToken;
+                const appId = evt.target.dataset.appid;
+                if (appId) {
+                    document.querySelector("#token").value = tokens[appId].accessToken;
+                }
             }
         });
     }
