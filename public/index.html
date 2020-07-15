@@ -151,6 +151,7 @@
             margin: 10px;
             height: 300px;
             font-family: monospace;
+            transition: height 200ms ease-in-out;
         }
 
         button {
@@ -202,6 +203,10 @@
             margin: 5px;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        .collapsed {
+            height: 30px;
         }
     </style>
 </head>
@@ -272,6 +277,7 @@
     }
 
     const appDataElem = document.querySelector("#appControl");
+    const tokenElem = document.querySelector("#token");
     const tokens = loadTokens();
     if (tokens) {
         let knownTokens = "";
@@ -285,14 +291,18 @@
             if (tokens) {
                 const appId = evt.target.dataset.appid;
                 if (appId) {
-                    document.querySelector("#token").value = tokens[appId].accessToken;
+                    tokenElem.value = tokens[appId].accessToken;
                 }
             }
         });
     }
+
+    tokenElem.addEventListener("click", () => {
+        tokenElem.classList.remove("collapsed");
+    });
     document.querySelector("#btnLoad").addEventListener("click", () => {
         appDataElem.classList.add("notloaded");
-        const tokenToLoad = document.querySelector("#token").value;
+        const tokenToLoad = tokenElem.value;
         fetch("/api/v1/info", {
             method: "POST",
             headers: {
@@ -311,7 +321,7 @@
                 storeToken(appData);
                 loadAppData(appData);
                 appDataElem.classList.remove("notloaded");
-
+                tokenElem.classList.add("collapsed");
             }).catch(err => {
                 alert(err);
             })
