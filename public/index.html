@@ -134,6 +134,7 @@
         }
 
         body {
+            box-sizing: border-box;
             padding: 20px;
             font-size: 20px;
             text-align: center;
@@ -183,6 +184,24 @@
             padding: 10px;
             color: #969696;
         }
+
+        #knownTokens {
+            text-align: left;
+            align-self: stretch;
+            padding-left: 5px;
+            padding-top: 10px;
+            padding-right: 5px;
+        }
+
+        .knownToken {
+            font-size: 90%;
+            border: #eaeaea;
+            background: #e1e1e1;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -190,7 +209,7 @@
     <h1>Deployr.</h1>
     <p>Welcome. Please enter your well known token into the following text area to start:</p>
     <textarea type="text" id="token" placeholder="Enter token"></textarea>
-    <div id="lastTokens"></div>
+    <div id="knownTokens"></div>
     <button id="btnLoad">Load</button>
     <div id="appControl" class="notloaded">
         <div class="appData">
@@ -223,9 +242,6 @@
             .then(res => res.json())
             .then(appData => {
                 document.querySelector(".appData .status").textContent = appData.status;
-                if (reset) {
-                    return;
-                }
                 window.setTimeout(() => loadStatus(), 3000);
             });
 
@@ -241,10 +257,34 @@
         }
     }
 
-    const tokens = JSON.parse(localStorage.getItem("tokens"));
-    const appDataElem = document.querySelector("#appControl");
-    if (tokens) {
+    function loadTokens() {
+        return JSON.parse(localStorage.getItem("tokens"));
+    }
 
+    function storeToken(appData) {
+        let tokens = loadTokens();
+        if (!tokens) {
+            tokens = {};
+        }
+        tokens[appData.id] = appData;
+        localStorage.setItem("tokens", JSON.stringify(tokens));
+    }
+
+    const appDataElem = document.querySelector("#appControl");
+    const tokens = loadTokens();
+    if (tokens) {
+        let knownTokens = "";
+        Object.keys(tokens).forEach(appId => {
+            const appData = tokens[appId];
+            knownTokens += `<span class="knownToken" data-appid="${appData.id}">${appData.name}</span>`;
+        });
+        document.querySelector("#knownTokens").innerHTML = knownTokens;
+        document.querySelector("#knownTokens").addEventListener("click", (evt) => {
+            const tokens = loadTokens();
+            if (tokens) {
+                document.querySelector("#token").value = tokens[evt.target.dataset.appid].accessToken;
+            }
+        });
     }
     document.querySelector("#btnLoad").addEventListener("click", () => {
         appDataElem.classList.add("notloaded");
@@ -264,7 +304,7 @@
                     alert(appData.error);
                     return;
                 }
-                reset = false;
+                storeToken(appData);
                 loadAppData(appData);
                 appDataElem.classList.remove("notloaded");
 
