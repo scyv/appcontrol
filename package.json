@@ -1,12 +1,12 @@
 {
-    "name": "deployr",
+    "name": "appcontrol",
     "version": "1.0.0",
-    "description": "Tool for managing deployments",
+    "description": "Tool for managing apps on a private server",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "KsiTec GbR",
+    "author": "Yves Schubert",
     "license": "MIT",
     "dependencies": {
         "body-parser": "^1.19.0",

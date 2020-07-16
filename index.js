@@ -99,7 +99,7 @@ class App {
 }
 
 (() => {
-    console.log("-- Starting Deployr --");
+    console.log("-- Starting AppControl --");
     console.log("Version: ", pjson.version);
     console.log("Reading manifest.json");
     const manifests = JSON.parse(fs.readFileSync("manifest.json"));
