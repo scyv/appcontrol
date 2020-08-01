@@ -1,6 +1,6 @@
 {
     "name": "appcontrol",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Tool for managing apps on a private server",
     "main": "index.js",
     "scripts": {

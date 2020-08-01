@@ -2,213 +2,7 @@
 
 <head>
     <title>AppControl</title>
-    <style>
-        html,
-        body,
-        div,
-        span,
-        applet,
-        object,
-        iframe,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        blockquote,
-        pre,
-        a,
-        abbr,
-        acronym,
-        address,
-        big,
-        cite,
-        code,
-        del,
-        dfn,
-        em,
-        img,
-        ins,
-        kbd,
-        q,
-        s,
-        samp,
-        small,
-        strike,
-        strong,
-        sub,
-        sup,
-        tt,
-        var,
-        b,
-        u,
-        i,
-        center,
-        dl,
-        dt,
-        dd,
-        ol,
-        ul,
-        li,
-        fieldset,
-        form,
-        label,
-        legend,
-        table,
-        caption,
-        tbody,
-        tfoot,
-        thead,
-        tr,
-        th,
-        td,
-        article,
-        aside,
-        canvas,
-        details,
-        embed,
-        figure,
-        figcaption,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        output,
-        ruby,
-        section,
-        summary,
-        time,
-        mark,
-        audio,
-        video {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font-size: 100%;
-            font: inherit;
-            vertical-align: baseline;
-        }
-
-        /* HTML5 display-role reset for older browsers */
-        article,
-        aside,
-        details,
-        figcaption,
-        figure,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        section {
-            display: block;
-        }
-
-        body {
-            line-height: 1;
-        }
-
-        ol,
-        ul {
-            list-style: none;
-        }
-
-        blockquote,
-        q {
-            quotes: none;
-        }
-
-        blockquote:before,
-        blockquote:after,
-        q:before,
-        q:after {
-            content: '';
-            content: none;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        body {
-            box-sizing: border-box;
-            padding: 20px;
-            font-size: 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: sans-serif;
-        }
-
-        textarea {
-            align-self: stretch;
-            font-size: 15px;
-            margin: 10px;
-            height: 300px;
-            font-family: monospace;
-            transition: height 200ms ease-in-out;
-        }
-
-        button {
-            width: 200px;
-            font-size: 20px;
-        }
-
-        h1 {
-            font-size: 120%;
-            font-weight: bold;
-        }
-
-        .notloaded {
-            display: none;
-        }
-
-        #appControl {
-            margin-top: 20px;
-            border: 1px solid #e1e1e1;
-            padding: 20px;
-            text-align: left;
-            background: #f6f6f6;
-            box-shadow: 1px 1px 10px #eaeaea;
-        }
-
-        .appData>div {
-            padding: 5px;
-        }
-
-        p {
-            margin: 0;
-            padding: 10px;
-            color: #969696;
-        }
-
-        #knownTokens {
-            text-align: left;
-            align-self: stretch;
-            padding-left: 5px;
-            padding-top: 10px;
-            padding-right: 5px;
-        }
-
-        .knownToken {
-            font-size: 90%;
-            border: #eaeaea;
-            background: #e1e1e1;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .collapsed {
-            height: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -227,6 +21,7 @@
         <button id="btnUpdate">Update</button>
         <button id="btnStart">Start</button>
     </div>
+    <div class="console"></div>
 </body>
 <script>
     let token = null;
@@ -257,6 +52,7 @@
         document.querySelector(".appData .appId").textContent = appData.id;
         document.querySelector(".appData .appName").textContent = appData.name;
         document.querySelector(".appData .status").textContent = "...";
+        document.querySelector(".console").innerHTML = "";
         token = appData.accessToken;
         if (!loadStatusRunning) {
             loadStatus();
@@ -274,6 +70,24 @@
         }
         tokens[appData.id] = appData;
         localStorage.setItem("tokens", JSON.stringify(tokens));
+    }
+
+    function logError(error) {
+        let logEntry = document.createTextNode("\nERROR: " + JSON.stringify(error));
+        document.querySelector(".console").appendChild(logEntry);
+    }
+
+    function log(logInfo) {
+        console.log(logInfo);
+        if (logInfo.msg) {
+            document.querySelector(".console").appendChild(document.createTextNode("\n" + logInfo.msg));
+        }
+        if (logInfo.errmsg) {
+            logError(logInfo.errmsg);
+        }
+        if (logInfo.error) {
+            logError(logInfo.error);
+        }
     }
 
     const appDataElem = document.querySelector("#appControl");
@@ -315,7 +129,7 @@
             .then(res => res.json())
             .then(appData => {
                 if (appData.error) {
-                    alert(appData.error);
+                    logError(appData.error);
                     return;
                 }
                 storeToken(appData);
@@ -323,7 +137,7 @@
                 appDataElem.classList.remove("notloaded");
                 tokenElem.classList.add("collapsed");
             }).catch(err => {
-                alert(err);
+                logError(err);
             })
 
     });
@@ -343,7 +157,7 @@
         })
             .then(res => res.json())
             .then(json => {
-                alert(JSON.stringify(json));
+                log(json);
             });
 
     });
@@ -363,7 +177,7 @@
         })
             .then(res => res.json())
             .then(json => {
-                alert(JSON.stringify(json));
+                log(json);
             });
 
     });
@@ -382,7 +196,7 @@
         })
             .then(res => res.json())
             .then(json => {
-                alert(JSON.stringify(json));
+                log(json);
             });
 
     });

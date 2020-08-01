@@ -77,7 +77,7 @@ class App {
 
         app.use("/api/v1", router);
 
-        app.use("/*", express.static(path.resolve(__dirname, "public")));
+        app.use("/", express.static("public"));
 
         return app;
     }
