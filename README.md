@@ -2,6 +2,8 @@
 
 A tiny app for managing (i.e. running start, stop, status, update scripts) apps on a server.
 
+![Screenshot](screenshot.png)
+
 ### Get started
 
 -   Clone the project repository
