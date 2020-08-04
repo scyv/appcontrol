@@ -1,6 +1,6 @@
-# Deployr
+# Appcontrol
 
-A litte app for managing app deployments on a server.
+A tiny app for managing (i.e. running start, stop, status, update scripts) apps on a server.
 
 ### Get started
 
